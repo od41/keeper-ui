@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {
+  TooltipProvider,
+} from "@/components/ui/tooltip"
+import DefaultPage from "./_components/default-page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <TooltipProvider>
+        <body className={inter.className}>
+          <DefaultPage>
+            {children}
+          </DefaultPage>
+        </body>
+      </TooltipProvider>
     </html>
   );
 }
