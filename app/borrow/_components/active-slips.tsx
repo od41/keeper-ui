@@ -12,15 +12,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { TokenInput } from "@/components/ui/token-input";
 
-function RepayModal({debtId}: {debtId: string}) {
-  const handleRepay = (e:any) => {
+function RepayModal({ debtDetails }: { debtDetails: ActiveDebtType}) {
+  const { dateCreated, debt, collateral, collaterizedRatio, active, id } = debtDetails
+
+  const handleRepay = (e: any) => {
     e.preventDefault();
-    window.alert('Repay'+debtId)
-  }
+    window.alert("Repay " + id);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -30,22 +30,35 @@ function RepayModal({debtId}: {debtId: string}) {
         <DialogHeader>
           <DialogTitle>Repay Debt</DialogTitle>
           <DialogDescription>
-            Repay part of your debt with kUSD.
+            Repay part or all of your debt with kUSD.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <TokenInput label="debt"/>
+          <TokenInput label="debt" />
+
+          <div className="grid gap-3">
+            <ul className="grid gap-3">
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">
+                  Owed
+                </span>
+                <span>kUSD {debt}</span>
+              </li>
+            </ul>
+          </div>
         </div>
         <DialogFooter>
           <Button variant="outline">Cancel</Button>
-          <Button type="submit" onClick={handleRepay}>Repay</Button>
+          <Button type="submit" onClick={handleRepay}>
+            Repay
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-type ActiveSlipsType = {
+type ActiveDebtType = {
   collaterizedRatio: number;
   dateCreated: number;
   debt: number;
@@ -56,7 +69,7 @@ type ActiveSlipsType = {
 
 export const ActiveSlips = () => {
   const priceOfCollateral = 0.02;
-  const activeSlips: ActiveSlipsType[] = [
+  const activeSlips: ActiveDebtType[] = [
     {
       collaterizedRatio: 110,
       dateCreated: Date.now(),
@@ -99,15 +112,20 @@ export const ActiveSlips = () => {
         <CardContent className="grid">
           {activeSlips.map(
             (
-              { dateCreated, debt, collateral, collaterizedRatio, active, id },
+              debtDetails,
               key
-            ) => (
-              <div
+            ) => {
+              const { dateCreated, debt, collateral, collaterizedRatio, active, id } = debtDetails
+              return <div
                 key={`slip-${dateCreated}`}
                 className="flex items-center justify-between gap-4 w-full hover:bg-zinc-100 py-4 px-4 rounded-md"
               >
                 <div className="flex items-center gap-2">
-                  {active ? <RefreshCw className="h-4 text-green-400"/> : <CircleCheck className="h-5 text-stone-400" />}
+                  {active ? (
+                    <RefreshCw className="h-4 text-green-400" />
+                  ) : (
+                    <CircleCheck className="h-5 text-stone-400" />
+                  )}
                   <div className="grid gap-1">
                     <p className="text-md font-medium leading-none">
                       kUSD {debt}
@@ -118,9 +136,9 @@ export const ActiveSlips = () => {
                     </div>
                   </div>
                 </div>
-                <RepayModal debtId={id}/>
+                <RepayModal debtDetails={debtDetails} />
               </div>
-            )
+            }
           )}
         </CardContent>
       </Card>

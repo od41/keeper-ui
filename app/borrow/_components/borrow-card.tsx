@@ -21,6 +21,23 @@ export const BorrowCard = () => {
         <div className="grid grid-auto-row gap-4">
           <TokenInput label="collateral" />
           <TokenInput label="debt" />
+
+          <div className="grid gap-3">
+            <ul className="grid gap-3">
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">
+                  Fee
+                </span>
+                <span>0.5%</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">
+                  Collaterization Ratio
+                </span>
+                <span>110%</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </CardContent>
       <CardFooter className="border-t px-6 py-4">
