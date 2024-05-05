@@ -1,8 +1,11 @@
 import React from 'react'
+import { TradingCard } from './_components/trading-card'
 
 const TradingPage = () => {
   return (
-    <div>TradingPage</div>
+    <div>
+      <TradingCard />
+    </div>
   )
 }
 

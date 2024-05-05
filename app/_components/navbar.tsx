@@ -1,38 +1,42 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { CircleUser, Menu, Package2, Search } from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
-import { usePathname } from 'next/navigation'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@radix-ui/react-dropdown-menu"
+import * as React from "react";
+import Link from "next/link";
+import { CircleUser, Menu, Package2, Search } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+} from "@radix-ui/react-dropdown-menu";
 
 const links: { title: string; href: string; description: string }[] = [
   {
     title: "Dashboard",
     href: "/",
-    description:
-      "The dashboard",
+    description: "The dashboard",
   },
   {
     title: "Borrow",
     href: "/borrow",
-    description:
-      "Borrow some kUSD",
+    description: "Borrow some kUSD",
   },
   {
     title: "Pools",
     href: "/pools",
-    description:
-      "Deposit funds and earn yield",
+    description: "Deposit funds and earn yield",
   },
   {
     title: "Trading",
     href: "/trading",
     description: "Instantly connect and protect your positions within Keeper",
   },
-]
+];
 
 export function Navbar() {
   const currentPath = usePathname();
@@ -41,23 +45,27 @@ export function Navbar() {
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 mb-12">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
-          href="#"
+          href="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <Package2 className="h-6 w-6" />
-          <span className="sr-only">Keeper</span>
+          {/* <Package2 className="h-6 w-6" /> */}
+          <span className="font-bold text-primary uppercase">Keeper</span>
         </Link>
-          {links.map(({ title, href, description }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`transition-colors hover:text-primary hover:underline hover:underline-offset-4
-                ${currentPath === href ? 'text-primary underline underline-offset-4' : 'text-muted-foreground'}
+        {links.map(({ title, href, description }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`transition-colors hover:text-primary hover:underline hover:underline-offset-4
+                ${
+                  currentPath === href
+                    ? "text-primary underline underline-offset-4"
+                    : "text-muted-foreground"
+                }
               `}
-            >
-              {title}
-            </Link>
-          ))}
+          >
+            {title}
+          </Link>
+        ))}
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -69,17 +77,23 @@ export function Navbar() {
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
-              href="#"
+              href="/"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              <Package2 className="h-6 w-6" />
-              <span className="sr-only">Acme Inc</span>
+              {/* <Package2 className="h-6 w-6" /> */}
+              <span className="font-bold text-primary uppercase">Keeper</span>
             </Link>
-              {links.map(({ title, href, description }) => (
+            {links.map(({ title, href, description }) => (
               <Link
                 key={href}
-                href="#"
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                href={href}
+                className={`transition-colors hover:text-primary hover:underline hover:underline-offset-4
+                ${
+                  currentPath === href
+                    ? "text-primary underline underline-offset-4"
+                    : "text-muted-foreground"
+                }
+              `}
               >
                 {title}
               </Link>
@@ -87,7 +101,7 @@ export function Navbar() {
           </nav>
         </SheetContent>
       </Sheet>
-      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+      <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
