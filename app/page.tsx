@@ -5,7 +5,7 @@ import { ActiveSlips } from "./_components/active-slips";
 export default function Home() {
   return (
     <>
-      <Tabs defaultValue="week">
+      <Tabs defaultValue="borrow">
               <div className="flex items-center">
                 <TabsList>
                   <TabsTrigger value="borrow">Borrow</TabsTrigger>
