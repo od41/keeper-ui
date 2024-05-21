@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@radix-ui/react-dropdown-menu";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const links: { title: string; href: string; description: string }[] = [
   {
@@ -22,19 +23,19 @@ const links: { title: string; href: string; description: string }[] = [
     description: "The dashboard",
   },
   {
+    title: "Guardian",
+    href: "/guardian",
+    description: "Instantly connect and protect your positions within Keeper",
+  },
+  {
     title: "Borrow",
     href: "/borrow",
     description: "Borrow some kUSD",
   },
   {
-    title: "Pools",
+    title: "Liquidity",
     href: "/pools",
     description: "Deposit funds and earn yield",
-  },
-  {
-    title: "Trading",
-    href: "/trading",
-    description: "Instantly connect and protect your positions within Keeper",
   },
 ];
 
@@ -102,7 +103,8 @@ export function Navbar() {
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <DropdownMenu>
+        <ConnectButton />
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
               <CircleUser className="h-5 w-5" />
@@ -117,7 +119,7 @@ export function Navbar() {
             <DropdownMenuSeparator />
             <DropdownMenuItem>Logout</DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
     </header>
   );

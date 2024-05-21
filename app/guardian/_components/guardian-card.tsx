@@ -12,7 +12,7 @@ import { TokenInput } from "@/components/ui/token-input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export const TradingCard = () => {
+export const GuardianCard = () => {
   return (
     <Card x-chunk="dashboard-05-chunk-3">
       <CardHeader className="px-7">
