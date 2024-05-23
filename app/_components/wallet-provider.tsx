@@ -1,10 +1,9 @@
 "use client"
 import {
-  getDefaultConfig,
   RainbowKitProvider,
-  connectorsForWallets 
+  getDefaultConfig
 } from '@rainbow-me/rainbowkit';
-import { WagmiProvider, createConfig } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 import { braveWallet, metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
 import {
   canto
@@ -16,28 +15,19 @@ import {
 } from "@tanstack/react-query";
 import React from 'react';
 
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: 'Recommended',
-      wallets: [metaMaskWallet, braveWallet],
-    },
+const config = getDefaultConfig({
+  appName: 'Keeper UI',
+  projectId: 'YOUR_PROJECT_ID',
+  chains: [
+      // canto, 
+      cantoTestnet
   ],
-  {
-    appName: 'Keeper',
-    projectId: 'YOUR_PROJECT_ID',
-  }
-);
-
-const config = createConfig({
-    connectors,
-    autoConnect: true,
-    chains: [
-        // canto, 
-        cantoTestnet
-    ],
-    ssr: false, // If your dApp uses server side rendering (SSR)
-  });
+  wallets: [{
+    groupName: 'Recommended',
+    wallets: [metaMaskWallet, braveWallet],
+  }],
+  ssr: false, // If your dApp uses server side rendering (SSR)
+});
 
 
   const queryClient = new QueryClient();
