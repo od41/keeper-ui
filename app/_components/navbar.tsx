@@ -103,7 +103,7 @@ export function Navbar() {
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <ConnectButton />
+        <ConnectButton label="Sign in" accountStatus="avatar" chainStatus="none" showBalance={false} />
         {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">

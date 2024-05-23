@@ -11,31 +11,93 @@ import {
 import { TokenInput } from "@/components/ui/token-input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 export const GuardianCard = () => {
+  const kusdBalance = 32;
+  const dummyCantoPositions: any = [
+    {
+      id: '428',
+      type: "long",
+      margin: 434,
+      leverage: 1.4,
+      token1: "cNote",
+      token2: "canto",
+      price: "0.5",
+    },
+    {
+      id: "3241",
+      type: "short",
+      margin: 667,
+      leverage: 2,
+      token1: "canto",
+      token2: "cNote",
+      price: "4",
+    },
+  ]
   return (
     <Card x-chunk="dashboard-05-chunk-3">
       <CardHeader className="px-7">
-        <CardTitle>Create Trading Position</CardTitle>
-        <CardDescription>Create a new protected trading position</CardDescription>
+        <CardTitle>Create Keeper Agent</CardTitle>
+        <CardDescription>
+          Protect a trading position with a Keeper Agent
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-auto-row gap-4">
-          <div className="grid gap-6">
-            <div className="grid gap-3">
-              <Label htmlFor="slips">Slips</Label>
-              <Select>
-                <SelectTrigger id="slips" aria-label="Select slip">
-                  <SelectValue placeholder="Select slip" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="slip1">Slip 1</SelectItem>
-                  <SelectItem value="slip2">Slip 2</SelectItem>
-                </SelectContent>
-              </Select>
+          <div className="grid gap-3">
+            <Label htmlFor="positions">Cadence Positions</Label>
+            <Select>
+              <SelectTrigger id="positions" aria-label="Select slip">
+                <SelectValue placeholder="Select position" />
+              </SelectTrigger>
+              <SelectContent>
+                {dummyCantoPositions.map((pos: any) => (
+                  <SelectItem key={pos.id} value={`${pos.id}`}>
+                    <div>
+                      <div className="uppercase text-lg text-slate-800">{pos.margin} {pos.token1}</div>
+                      <div className="uppercase text-sm text-slate-400">{pos.type} {pos.leverage}X</div>
+                      <div>
+                        {pos.price} {pos.token2}
+                      </div>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="text-sm">
+            KUSD Balance: {kusdBalance} KUSD
+          </div>
+
+          <div className="grid gap-3">
+            <Label htmlFor="actions">Actions</Label>
+            <Select>
+              <SelectTrigger id="actions" aria-label="Action type">
+                <SelectValue placeholder="Action type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="take-profit">Take Profit</SelectItem>
+                <SelectItem value="stop-loss">Stop Loss</SelectItem>
+                <SelectItem value="add-margin">Add Margin</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+
+            <div className="flex justify-between items-center">
+              <Label htmlFor="percentage" className='capitalize mb-3'>Percentage</Label>
+              <div className="text-sm">
+                Price preview: {}
+              </div>
+            </div>
+            <div className="flex items-center">
+              <Input id="percentage" type="number" max={"100"} min="0" placeholder="Percentage" /><span className="ml-4">%</span> 
             </div>
           </div>
-          <TokenInput label="debt" />
+
+          {/* <TokenInput label="debt" /> */}
 
           <div className="grid gap-3">
             <ul className="grid gap-3">

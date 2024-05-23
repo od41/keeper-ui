@@ -1,10 +1,10 @@
 import React from 'react'
-import { GuardianCard } from './_components/guardian-card'
+import { KeeperAgents } from './_components/keeper-agents'
 
 const GuardianPage = () => {
   return (
     <div>
-      <GuardianCard />
+      <KeeperAgents />
     </div>
   )
 }

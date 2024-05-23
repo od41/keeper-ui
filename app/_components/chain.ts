@@ -2,7 +2,7 @@ import { type Chain } from 'viem'
 
 export const cantoTestnet = {
   id: 7701,
-  name: 'Cnato Testnet',
+  name: 'Canto Testnet',
   nativeCurrency: { name: 'Canto', symbol: 'CANTO', decimals: 18 },
   rpcUrls: {
     default: { http: ['https://canto-testnet.plexnode.wtf'] },

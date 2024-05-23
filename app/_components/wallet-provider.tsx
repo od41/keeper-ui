@@ -2,8 +2,10 @@
 import {
   getDefaultConfig,
   RainbowKitProvider,
+  connectorsForWallets 
 } from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
+import { WagmiProvider, createConfig } from 'wagmi';
+import { braveWallet, metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
 import {
   canto
 } from 'wagmi/chains';
@@ -14,9 +16,22 @@ import {
 } from "@tanstack/react-query";
 import React from 'react';
 
-const config = getDefaultConfig({
-    appName: 'Keeper UI',
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet, braveWallet],
+    },
+  ],
+  {
+    appName: 'Keeper',
     projectId: 'YOUR_PROJECT_ID',
+  }
+);
+
+const config = createConfig({
+    connectors,
+    autoConnect: true,
     chains: [
         // canto, 
         cantoTestnet
@@ -31,7 +46,7 @@ export const WalletProvider = ({children} : {children: React.ReactNode}) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider modalSize="compact">
           {children}
         </RainbowKitProvider>
       </QueryClientProvider>
