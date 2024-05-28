@@ -53,6 +53,7 @@ export function Navbar() {
     const getBal = async () => {
       if (!address) return;
       const bal = await KUSDContract.read.balanceOf([address]);
+      console.log("fresh bal", bal);
       setKusdBalance(bal!);
     };
 
