@@ -1,13 +1,10 @@
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import '@rainbow-me/rainbowkit/styles.css';
-import {
-  TooltipProvider,
-} from "@/components/ui/tooltip"
+import "@rainbow-me/rainbowkit/styles.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import DefaultPage from "./_components/default-page";
-import { WalletProvider } from "./_components/wallet-provider";
+import { WalletProvider } from "../web3/wallet-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,13 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <WalletProvider>
-      <TooltipProvider>
-        <body className={inter.className}>
-          <DefaultPage>
-            {children}
-          </DefaultPage>
-        </body>
-      </TooltipProvider>
+        <TooltipProvider>
+          <body className={inter.className}>
+            <DefaultPage>{children}</DefaultPage>
+          </body>
+        </TooltipProvider>
       </WalletProvider>
     </html>
   );

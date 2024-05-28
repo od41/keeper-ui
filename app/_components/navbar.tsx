@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { CircleUser, Menu, Package2, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -14,7 +14,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@radix-ui/react-dropdown-menu";
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
+
+import { KUSDContract } from "@/web3/keeper.config";
 
 const links: { title: string; href: string; description: string }[] = [
   {
@@ -41,6 +44,22 @@ const links: { title: string; href: string; description: string }[] = [
 
 export function Navbar() {
   const currentPath = usePathname();
+  const { address } = useAccount();
+  const [kusdBalance, setKusdBalance] = useState("");
+
+  useEffect(() => {
+    console.log("address", address);
+    //fetch balance
+    const getBal = async () => {
+      if (!address) return;
+      const bal = await KUSDContract.read.balanceOf([address]);
+      setKusdBalance(bal!);
+    };
+
+    getBal();
+
+    console.log("kusd", kusdBalance);
+  }, [address]);
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 mb-12">
@@ -103,7 +122,13 @@ export function Navbar() {
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <ConnectButton label="Sign in" accountStatus="avatar" chainStatus="none" showBalance={false} />
+        <div>KUSD</div>
+        <ConnectButton
+          label="Sign in"
+          accountStatus="avatar"
+          chainStatus="none"
+          showBalance={false}
+        />
         {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
