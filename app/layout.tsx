@@ -20,13 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <WalletProvider>
-        <TooltipProvider>
-          <body className={inter.className}>
+      <body className={inter.className}>
+        <WalletProvider>
+          <TooltipProvider>
             <DefaultPage>{children}</DefaultPage>
-          </body>
-        </TooltipProvider>
-      </WalletProvider>
+          </TooltipProvider>
+        </WalletProvider>
+      </body>
     </html>
   );
 }

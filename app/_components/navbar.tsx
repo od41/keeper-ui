@@ -17,6 +17,8 @@ import {
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 
+import { formatUnits } from "viem";
+
 import { KUSDContract } from "@/web3/keeper.config";
 
 const links: { title: string; href: string; description: string }[] = [
@@ -45,21 +47,17 @@ const links: { title: string; href: string; description: string }[] = [
 export function Navbar() {
   const currentPath = usePathname();
   const { address } = useAccount();
-  const [kusdBalance, setKusdBalance] = useState("");
+  const [kusdBalance, setKusdBalance] = useState("0");
 
   useEffect(() => {
-    console.log("address", address);
     //fetch balance
     const getBal = async () => {
       if (!address) return;
       const bal = await KUSDContract.read.balanceOf([address]);
-      console.log("fresh bal", bal);
-      setKusdBalance(bal!);
+      setKusdBalance(formatUnits(bal as bigint, 18));
     };
 
     getBal();
-
-    console.log("kusd", kusdBalance);
   }, [address]);
 
   return (
@@ -123,7 +121,7 @@ export function Navbar() {
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <div>KUSD</div>
+        <div>{kusdBalance}KUSD</div>
         <ConnectButton
           label="Sign in"
           accountStatus="avatar"

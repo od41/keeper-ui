@@ -1,4 +1,4 @@
-[
+const abi = [
   {
     "type": "function",
     "name": "approve",
@@ -83,4 +83,5 @@
     "outputs": [],
     "stateMutability": "nonpayable"
   }
-]
+] as const
+export default abi

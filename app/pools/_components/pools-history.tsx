@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RefreshCw, CircleCheck, Dot } from "lucide-react";
 
 enum PoolActionType {
-  Deposit="Deposit",
-  Withdrawal="Withdrawal"
+  Deposit = "Deposit",
+  Withdrawal = "Withdrawal",
 }
 
 type PoolsHistoryType = {
@@ -26,7 +26,7 @@ export const PoolsHistory = () => {
       yieldRate: 8.23,
       type: PoolActionType.Withdrawal,
       active: true,
-      id: "di32i3j",
+      id: "di3992i3j",
     },
     {
       dateCreated: Date.now(),
@@ -34,7 +34,7 @@ export const PoolsHistory = () => {
       yieldRate: 8.23,
       type: PoolActionType.Withdrawal,
       active: true,
-      id: "di32i3j",
+      id: "di32i093j",
     },
     {
       dateCreated: Date.now(),
@@ -42,10 +42,10 @@ export const PoolsHistory = () => {
       yieldRate: 8.23,
       type: PoolActionType.Withdrawal,
       active: true,
-      id: "di32i3j",
+      id: "di32i3ghj",
     },
     {
-      dateCreated: Date.now()-300000,
+      dateCreated: Date.now() - 300000,
       amount: 100,
       yieldRate: 8.23,
       type: PoolActionType.Deposit,
@@ -60,14 +60,12 @@ export const PoolsHistory = () => {
           <CardTitle>Pools History</CardTitle>
         </CardHeader>
         <CardContent className="grid">
-          {activeSlips.map(
-            (
-              debtDetails,
-              key
-            ) => {
-              const { dateCreated,amount, type, yieldRate, active, id } = debtDetails
-              return <div
-                key={`slip-${dateCreated}`}
+          {activeSlips.map((debtDetails, key) => {
+            const { dateCreated, amount, type, yieldRate, active, id } =
+              debtDetails;
+            return (
+              <div
+                key={`slip-${id}`}
                 className="flex items-center justify-between gap-4 w-full hover:bg-zinc-100 py-4 px-4 rounded-md"
               >
                 <div className="flex items-center gap-2">
@@ -77,9 +75,7 @@ export const PoolsHistory = () => {
                     <CircleCheck className="h-5 text-stone-400" />
                   )}
                   <div className="grid gap-1">
-                    <p className="text-md font-medium leading-none">
-                      {type}
-                    </p>
+                    <p className="text-md font-medium leading-none">{type}</p>
                     <div className="text-sm text-muted-foreground flex items-center gap-">
                       {yieldRate}% <Dot />{" "}
                       {new Date(dateCreated).toDateString()}
@@ -88,8 +84,8 @@ export const PoolsHistory = () => {
                 </div>
                 <div className="text-lg">kUSD {amount}</div>
               </div>
-            }
-          )}
+            );
+          })}
         </CardContent>
       </Card>
     </>
