@@ -5,6 +5,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import DefaultPage from "./_components/default-page";
 import { WalletProvider } from "../web3/wallet-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <WalletProvider>
           <TooltipProvider>
-            <DefaultPage>{children}</DefaultPage>
+            <>
+              <DefaultPage>{children}</DefaultPage>
+              <Toaster />
+            </>
           </TooltipProvider>
         </WalletProvider>
       </body>

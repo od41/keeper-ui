@@ -16,7 +16,7 @@ export const KUSD_ADDRESS =
     ? "0xcanto"
     : "0x987D567B56b3186f0fea777Bc3c5723DDb52bfB8";
 
-    export const CNOTE_ADDRESS =
+export const CNOTE_ADDRESS =
   process.env.NODE_ENV == "production"
     ? "0xcanto"
     : "0x03F734Bd9847575fDbE9bEaDDf9C166F880B5E5f";
@@ -56,3 +56,5 @@ export const KUSDContract = getContract({
   client,
   abi: kusdAbi,
 });
+
+export const EIGHTEEN_DECIMALS = 10 ** 18;
