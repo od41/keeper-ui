@@ -6,6 +6,7 @@ import {
   type BaseError,
   useWriteContract,
   useWaitForTransactionReceipt,
+  useWatchContractEvent,
 } from "wagmi";
 import { formatUnits } from "viem";
 import {
@@ -14,7 +15,7 @@ import {
   KUSD_ADDRESS,
   EIGHTEEN_DECIMALS,
 } from "@/web3/keeper.config";
-import keeperPoolAbi from "@/web3/abis/keeper-abi";
+import keeperPoolAbi from "@/web3/abis/keeper-pool-abi";
 import kusdAbi from "@/web3/abis/kusd-abi";
 
 export type KeeperSlip = {
@@ -63,6 +64,26 @@ export function KeeperProvider({ children }: { children: React.ReactNode }) {
   const [userKUSDBalance, setUserKUSDBalance] = useState(0);
   const [userKeeperSlips, setUserKeeperSlips] = useState(undefined);
   const [userPoolsHistory, setUserPoolsHistory] = useState(undefined);
+
+  const { address } = useAccount();
+
+  // listen for new keeper slips
+  useWatchContractEvent({
+    address: KEEPER_POOL_ADDRESS,
+    abi: keeperPoolAbi,
+    eventName: "NewKeeperDeployed",
+    args: {
+      trader: address,
+    },
+    onLogs(logs) {
+      console.log("New logs!", logs);
+      setUserKeeperSlips(logs);
+    },
+  });
+
+  useEffect(() => {
+    console.log("slips...", userKeeperSlips);
+  }, [address, userKeeperSlips]);
 
   return (
     <KeeperContext.Provider

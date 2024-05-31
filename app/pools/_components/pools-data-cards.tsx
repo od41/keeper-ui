@@ -52,7 +52,7 @@ import {
   KUSD_ADDRESS,
   EIGHTEEN_DECIMALS,
 } from "@/web3/keeper.config";
-import keeperPoolAbi from "@/web3/abis/keeper-abi";
+import keeperPoolAbi from "@/web3/abis/keeper-pool-abi";
 import kusdAbi from "@/web3/abis/kusd-abi";
 import cerc20Abi from "@/web3/abis/cerc20-abi";
 

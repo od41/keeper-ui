@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
-import { TokenInput } from "@/components/ui/token-input";
 
 import {
   useReadContract,
@@ -41,7 +40,7 @@ import {
   KUSD_ADDRESS,
   EIGHTEEN_DECIMALS,
 } from "@/web3/keeper.config";
-import keeperPoolAbi from "@/web3/abis/keeper-abi";
+import keeperPoolAbi from "@/web3/abis/keeper-pool-abi";
 import kusdAbi from "@/web3/abis/kusd-abi";
 import cerc20Abi from "@/web3/abis/cerc20-abi";
 
@@ -100,7 +99,7 @@ export const BorrowCard = () => {
             title: "You've taken a new loan!",
             variant: "success",
           });
-          handleCancel();
+          // handleCancel();
         },
         onError(error) {
           t.update({
@@ -112,6 +111,12 @@ export const BorrowCard = () => {
           });
         },
       }
+    );
+
+    console.error(
+      "borrow error",
+      borrowError!.message,
+      BigInt(Number(values.collateralAmount) * EIGHTEEN_DECIMALS)
     );
   };
 

@@ -14,12 +14,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@radix-ui/react-dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 
 import { formatUnits } from "viem";
+import kusdAbi from "@/web3/abis/kusd-abi";
 
-import { KUSDContract } from "@/web3/keeper.config";
+import { KUSDContract, KUSD_ADDRESS } from "@/web3/keeper.config";
 
 const links: { title: string; href: string; description: string }[] = [
   {
@@ -47,18 +49,18 @@ const links: { title: string; href: string; description: string }[] = [
 export function Navbar() {
   const currentPath = usePathname();
   const { address } = useAccount();
-  const [kusdBalance, setKusdBalance] = useState("0");
 
-  useEffect(() => {
-    //fetch balance
-    const getBal = async () => {
-      if (!address) return;
-      const bal = await KUSDContract.read.balanceOf([address]);
-      setKusdBalance(formatUnits(bal as bigint, 18));
-    };
-
-    getBal();
-  }, [address]);
+  const {
+    data: kusdBalance,
+    error: kusdBalanceError,
+    isPending: kusdBalanceLoading,
+  } = useReadContract({
+    abi: kusdAbi,
+    address: KUSD_ADDRESS,
+    functionName: "balanceOf",
+    args: [address!],
+    account: address,
+  });
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 mb-12">
@@ -121,7 +123,17 @@ export function Navbar() {
         </SheetContent>
       </Sheet>
       <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <div>{kusdBalance}KUSD</div>
+        <span>
+          {kusdBalanceLoading ? (
+            <Skeleton className="w-[40px] h-[30px] rounded-md" />
+          ) : (
+            <>
+              {formatUnits(kusdBalance as bigint, 18)}{" "}
+              <span className="text-xs text-gray-400">KUSD</span>
+            </>
+          )}
+        </span>
+        {/* <div>{formatUnits(kusdBalance as bigint, 18)}KUSD</div> */}
         <ConnectButton
           label="Sign in"
           accountStatus="avatar"

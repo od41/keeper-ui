@@ -2,7 +2,7 @@ import { createPublicClient, http, getContract, WalletClient } from "viem";
 
 import { cantoTestnet } from "@/web3/chain";
 import { canto } from "viem/chains";
-import keeperPoolAbi from "./abis/keeper-abi";
+import keeperPoolAbi from "./abis/keeper-pool-abi";
 import keeperSlipAbi from "./abis/keeper-slip-abi";
 import kusdAbi from "./abis/kusd-abi";
 
